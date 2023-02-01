@@ -132,20 +132,20 @@
         </div>
 
         <div class="form">
-            <form action="/action_page.php">
+            <form id="form__contacto" action="javascript:;" onsubmit="handleSubmit();">
                 <div class="column1">
                     <label for="fname">Nombre</label><br>
-                    <input type="text" id="fname" value=""><br><br>
+                    <input type="text" id="fname" value="" required><br><br>
                     
                     <label for="femail">Email</label><br>
-                    <input type="text" id="femail" value=""><br><br>
+                    <input type="email" id="femail" value="" required><br><br>
                     
                     <label for="ftelefono">Telefono</label><br>
-                    <input type="text" id="ftelefono" value=""><br><br>
+                    <input type="number" id="ftelefono" value="" required><br><br>
                 </div>
                 <div class="column2">
-                    <label for="fmensaje">Mensaje</label><br>
-                    <textarea name="fmensaje" id="fmensaje"></textarea>
+                    <label for="fmensaje">Mensaje</label>
+                    <textarea name="fmensaje" id="fmensaje" required></textarea>
                     <!-- <input type="text" id="fmensaje" value=""><br><br> -->
                     
                     <button type="submit">Enviar</button>
@@ -190,5 +190,53 @@
 
 </footer>
 
+<div id="popUp" class="modal__popup">
+    <div class="modal__popup__close" onclick="closeModal()">X</div>
+    <div class="modal__popup__title"><h3>Plan E</h3></div>
+    <div class="modal__popup__subtitle"><h4>La casa de tus sueños</h4></div>
+    <div class="modal__popup__box"><h3>¡Es posible!</h3></div>
+    <h5>¿Querés saber más?</h5>
+    <p>Dejanos tu mail</p><br>
+    
+    <form id="newsletter" action="javascript:;" onsubmit="subscribeNewsletter();">
+        <input type="text" id="nemail" value="" placeholder="Escribe tu email aquí..." required><br><br>
+        <button type="submit">Subscribirme</button>
+    </form>
+
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("a0ExChcDt7SG0Wbn7");
+   })();
+   
+   function handleSubmit(){
+    let form = document.getElementById('form__contacto');
+       let name = document.getElementById('fname').value;
+       let email = document.getElementById('femail').value;
+       let telefono = document.getElementById('ftelefono').value;
+       let mensaje = document.getElementById('fmensaje').value;
+       
+        emailjs.send('service_kyfm8i9', 'template_djqe1r5', {name, email, telefono, mensaje});
+        form.reset();
+   }
+</script>
+<script>
+    setTimeout(() => {
+        let popup = document.getElementById("popUp");
+        popup.classList.toggle("show");
+    }, 1000);
+
+    function closeModal() {
+        let popup = document.getElementById("popUp");
+        popup.classList.remove("show");
+    }
+
+    function subscribeNewsletter(){
+        let email = document.getElementById('nemail').value;
+        console.log(email);
+    }
+    </script>
 </body>
 </html>
